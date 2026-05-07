@@ -51,11 +51,11 @@ INSERT INTO Student VALUES
 ('S00008','Tran Phuc','Male','2003-09-09','IT');
 
 INSERT INTO Course (CourseID, CourseName, Credits) VALUES
-('C00001', 'Introduction to Programming', 3),
+('CS101', 'Introduction to Programming', 3),
 ('C00001', 'Database Systems', 4),
-('C00001', 'Principles of Management', 3),
-('C00001', 'Financial Accounting', 3),
-('C00001', 'Advanced Mathematics', 3);
+('MGT11', 'Principles of Management', 3),
+('ACC01', 'Financial Accounting', 3),
+('MAT01', 'Advanced Mathematics', 3);
 
 INSERT INTO Enrollment (StudentID, CourseID, Score) VALUES
 ('S00001', 'CS101', 8.5),
@@ -144,21 +144,14 @@ BEGIN
         c.CourseName,
         e.Score
     FROM Enrollment e
-    JOIN Student s 
-        ON s.StudentID = e.StudentID
-    JOIN Course c 
-        ON c.CourseID = e.CourseID
-    WHERE e.CourseID = varCourseID
-    AND e.Score = (
-        SELECT MAX(Score)
-        FROM Enrollment
-        WHERE CourseID = varCourseID
-    );
+    JOIN Student s ON s.StudentID = e.StudentID
+    JOIN Course c ON c.CourseID = e.CourseID
+    WHERE e.CourseID = varCourseID AND e.Score = (SELECT MAX(Score) FROM Enrollment WHERE CourseID = varCourseID);
 END //
 
 DELIMITER ;
 
-CALL GetTopScoreStudent('1'); 
+CALL GetTopScoreStudent('C00001'); 
 
 -- cau 6 
 
@@ -172,12 +165,9 @@ SELECT
     e.CourseID,
     e.Score
 FROM Enrollment e
-JOIN Student s 
-    ON s.StudentID = e.StudentID
-JOIN Department d 
-    ON d.DeptID = s.DeptID
-WHERE d.DeptID = 'IT'
-AND e.CourseID = 'C00001'
+JOIN Student s ON s.StudentID = e.StudentID
+JOIN Department d ON d.DeptID = s.DeptID
+WHERE d.DeptID = 'IT' AND e.CourseID = 'C00001'
 WITH CHECK OPTION;
 
 DROP PROCEDURE IF EXISTS UpdateScoreITDB;
@@ -190,12 +180,10 @@ CREATE PROCEDURE UpdateScoreITDB(
 )
 BEGIN
 
-    -- Nếu điểm > 10 thì gán = 10
     IF inoutNewScore > 10 THEN
         SET inoutNewScore = 10;
     END IF;
 
-    -- Cập nhật thông qua VIEW
     UPDATE ViewITEnrollmentDB
     SET Score = inoutNewScore
     WHERE StudentID = varStudentID;
