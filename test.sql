@@ -89,13 +89,8 @@ JOIN department d ON d.deptid = s.deptid;
 
 SELECT * FROM ViewStudentBasic; 
 
--- cau 2 chua lam duoc
-CREATE INDEX idxFullName
-ON Student(FullName);
-
-SELECT 
-	Fullname
-FROM student; 
+-- cau 2
+CREATE INDEX idxFullName ON Student(FullName);
 
 -- cau 3 
 
