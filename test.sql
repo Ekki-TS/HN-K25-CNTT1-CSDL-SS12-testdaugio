@@ -50,6 +50,32 @@ INSERT INTO Student VALUES
 ('S00007','Nguyen Mai','Female','2003-07-07','ACC'),
 ('S00008','Tran Phuc','Male','2003-09-09','IT');
 
+INSERT INTO Course (CourseID, CourseName, Credits) VALUES
+('C00001', 'Introduction to Programming', 3),
+('C00001', 'Database Systems', 4),
+('C00001', 'Principles of Management', 3),
+('C00001', 'Financial Accounting', 3),
+('C00001', 'Advanced Mathematics', 3);
+
+INSERT INTO Enrollment (StudentID, CourseID, Score) VALUES
+('S00001', 'CS101', 8.5),
+('S00001', 'DB201', 7.0),
+('S00002', 'CS101', 9.0),
+('S00002', 'MAT01', 6.5),
+('S00005', 'CS101', 7.5),
+('S00005', 'DB201', 9.5),
+('S00008', 'MAT01', 8.0),
+
+('S00003', 'MGT11', 8.0),
+('S00003', 'MAT01', 7.5),
+('S00006', 'MGT11', 5.5),
+('S00006', 'ACC01', 6.0),
+
+('S00004', 'ACC01', 9.0),
+('S00004', 'MAT01', 4.5),
+('S00007', 'ACC01', 7.0),
+('S00007', 'MGT11', 8.5);
+
 -- cau 1
 DROP VIEW IF EXISTS ViewStudentBasic;
 
